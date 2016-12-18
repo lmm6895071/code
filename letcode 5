@@ -1,0 +1,51 @@
+class Solution {
+public:
+    string longestPalindrome(string str) {
+    string result="";
+	int len=str.length();
+	if (len==0)
+	{
+	    cout<<str<<endl;
+		return 0;
+	}
+	if (len ==1)
+	{
+		cout<<str<<endl;
+		return 1;
+	}
+	int maxCount=0;
+	int maxStart=0;
+	for(int i=0;i<len-1;i++)
+	{
+		int count_L=1;
+		for (int j =1;i+j<len;j++)//奇数
+		{
+			if(i-j>=0 && i+j<len )
+			{
+				if (str[i-j]==str[i+j])
+					count_L++;
+			}
+			else  break;
+		}
+		if (maxCount<2*count_L-1)
+			maxCount=2*count_L-1,maxStart=i-count_L+1;
+		int count_R=0;
+		if (str[i]==str[i+1])//偶数
+		{
+			count_R=1;
+			for (int j =1;i+j<len;j++)
+			{
+				if(i-j>=0 & i+j+1<len )
+				{	if (str[i-j]==str[i+j+1])
+					count_R++;
+				}
+				else  break;
+			}
+			if (maxCount<2*count_R)
+				maxCount=2*count_R,maxStart=i-count_R+1;
+		}
+	}
+	result=str.substr(maxStart,maxCount);
+	cout<<result<<endl;
+    }
+};
