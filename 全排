@@ -1,0 +1,66 @@
+#include<iostream>
+#include<vector>
+#include<Cmath>
+#include<algorithm>
+using namespace std;
+vector<int> vector1;
+int count=0;
+vector<int> target;
+int number=0;
+void def(int index,int count)
+{
+	if(index>=count)
+	{
+		for(int i=0;i<count;i++)
+			cout<<target[i]<<" ";
+	    cout<<endl;
+		number++;
+		return;
+	}
+	for(int j=index;j<count;j++)
+	{
+		if((j-1>=index))
+			if((vector1[j-1]==vector1[j]))
+			continue;
+		target.push_back(vector1[j]);
+		int temp=vector1[index];
+		vector1[index]=vector1[j];
+		vector1[j]=temp;
+
+		def(index+1,count);
+		target.pop_back();
+		temp=vector1[index];
+		vector1[index]=vector1[j];
+		vector1[j]=temp;
+	}
+
+}
+int cmp(const void * a ,const void * b)
+{
+	int as=*((int *)a);
+	int bs=*((int *)b);
+	return as-bs;
+}
+void function()
+{
+	vector1.push_back(1);
+	vector1.push_back(1);
+	vector1.push_back(3);
+	
+	vector1.push_back(3);
+	vector1.push_back(5);
+	sort(vector1.begin(),vector1.end());
+    //qsort(vector1.begin(),vector1.size(),sizeof(vector1[0]),cmp);
+    int count=vector1.size();
+	cout<<"count:"<<count<<endl;
+	def(0,count);
+
+}
+
+
+int main()
+{
+	function();
+	cout<<number<<endl;
+	return 0;
+}
