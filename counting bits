@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> countBits(int n) {
+        vector<int> as;
+	    as.push_back(0);
+	
+	if (n==0)
+	   return as;
+
+	for(int i=1;i<=n;i++)
+	{
+		
+		int count=0;
+		int k=2;
+		while (k<i)
+		{
+			k*=2;
+			count++;
+		}
+		int remain=i%((int)(pow(2,count)));
+		as.push_back(1+as[remain]);
+		
+	}
+	return as;
+	}
+
+};
