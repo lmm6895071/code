@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int myAtoi(string as) {
+           int len=as.length();
+   if (len <1)
+	  return NULL;
+    
+   bool isdd=1;
+   bool isover=0;
+   int _I32_MAX=2147483647;
+   int _I32_MIN=-2147483648;
+   long long int result=0;
+   bool islq=0;
+   int index=0;
+   while (as[index]==' ')
+   {
+	   index++;
+   }
+    if (as[index]=='-')
+	   islq=1;
+   for(int i=index;i<len;i++)
+   {
+	   if((islq && (i==index))|| (i==index &&as[index]=='+'))
+		   continue;
+
+	   if(as[i]>='0' &&as[i]<='9')
+		   result=result*10+(as[i]-'0');
+	   else
+	   {
+		   isdd=0;
+		   break;
+	   }
+	   long long int temp=islq?result*(-1):result;
+	   if(temp>_I32_MAX || temp<_I32_MIN)
+	   {
+		   isover=1;
+		   break;
+	   }
+   }
+  
+   if(isover)
+	   return islq?_I32_MIN:_I32_MAX;
+   result=islq?result*(-1):result;
+   return result;
+    }
+};
