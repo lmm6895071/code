@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        string result="";
+        int len1=num1.length();
+        int len2=num2.length();
+        int len=len1>len2?len1:len2;
+        int r=0;
+        while(len--)
+        {
+            int sum=r;
+			len1--;
+			len2--;
+            if((len1>=0) && (len2>=0))
+                 sum+=(num1[len1]-'0')+(num2[len2]-'0');
+            else if (len1>=0 && len2<0)
+                 sum+=(num1[len1]-'0');
+            else if(len1<0 && len2>=0)
+                 sum+=(num2[len2]-'0');
+            r=sum/10;
+            result+=(sum%10+'0');
+        }
+        if (r>0)
+           result+=(r+'0');
+        string out="";
+        for(int i=result.length()-1;i>=0;i--)
+            out+=result[i];
+        return out;
+    }
+};
