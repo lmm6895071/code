@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int getIndex(vector<int>& numbers, int target)
+{
+	int result=0;
+	int len=numbers.size();
+	int l=1;
+	int r=len;
+	int m=(l+r)/2;
+	while(l<m)
+	{
+		if(numbers[m-1]==target/2)
+		{	result=m;
+			break;
+		}
+		if(numbers[m-1]<target/2)	
+			l=m;
+		else   
+			r=m;
+	    m=(r+l)/2;
+	}
+	if(l>=m)
+		result=m;
+	return result;
+}
+vector<int> twoSum(vector<int>& numbers, int target) {
+	int len=numbers.size();
+    vector<int> result;
+	int start=getIndex(numbers,target)-1;
+	bool isok=0;
+	for(int i=start;i>=0;i--)
+	{
+		for (int j=(i!=start?start:start+1);j<len;j++)
+		{
+			if(numbers[i]+numbers[j]==target)
+			{
+				result.push_back(i+1);
+				result.push_back(j+1);
+				cout<<i+1<<" "<<j+1<<endl;
+				isok=1;
+				break; 
+			}
+			if(numbers[i]+numbers[j]>target)
+				break;
+		}
+		if (isok)
+			break;
+	}
+    return result;    
+}
+};
