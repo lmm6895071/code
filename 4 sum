@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& numbers, int target) {
+        int len=numbers.size();
+    vector<vector<int>>result;
+	sort(numbers.begin(),numbers.end());
+	int start=0;
+	int end=len-1;
+	for(int i=0;i<=len-4;i++)
+		for(int j=i+1;j<=len-3;j++)
+		{
+			start=j+1;
+			end=len-1;
+			while(start<end)
+			{
+				if(numbers[start]+numbers[end]==target-numbers[i]-numbers[j])
+				{
+				    bool isok=0;
+					if(result.size()<1 )
+						isok=1;
+					else {
+					     int jj=result.size()-1;
+					     for(;jj>=0;jj--)
+					     {
+							vector<int> t=result[jj];
+							if(((t[t.size()-1]==numbers[end] )&& (t[t.size()-2]==numbers[start])&&((t[t.size()-3]==numbers[j]))&&(t[t.size()-4]==numbers[i])))
+							    {	isok=0;break;}
+					     }
+						 if(jj<0)
+							 isok=1;
+					}
+					if(isok)
+					{
+				    vector<int> temp;
+					temp.push_back(numbers[i]);
+					temp.push_back(numbers[j]);
+					temp.push_back(numbers[start]);
+					temp.push_back(numbers[end]);
+					result.push_back(temp);
+					cout<<numbers[i]<<" "<<numbers[j]<<" "<<numbers[start]<<" "<<numbers[end]<<endl;
+					}
+					end--;
+					start++;
+					continue;
+				}
+		        numbers[start]+numbers[end]>target-numbers[i]-numbers[j]?end--:start++;
+			}
+		}
+    return result;    
+    }
+};
